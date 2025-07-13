@@ -27,8 +27,9 @@
         "skipLibCheck": true /* Skip type checking all .d.ts files. */,
 
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "zustand-create-slices": ["./src/zustand-create-slices.ts"]
         }
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "examples/**/*"]
 }
