@@ -117,9 +117,9 @@ export type FishSlice = ReturnType<typeof createFishSlice>;
 
 ```typescript
 // useStore.ts
-import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { create, type StateCreator } from "zustand";
 import { createSlices } from "zustand-create-slices";
+import { devtools } from "zustand/middleware";
 import { type BearSlice, createBearSlice } from "./bear.store";
 import { createFishSlice, type FishSlice } from "./fish.store";
 
@@ -149,18 +149,20 @@ export const useStore = create<ExampleStore>()(
 // Component.tsx
 import { useStore } from "./useStore";
 
-function BearCounter() {
-  const bears = useStore((state) => state.bear.bears);
-  const addBear = useStore((state) => state.bear.addBear);
-  const eatFish = useStore((state) => state.bear.eatFish);
+export default function Component() {
+    const bears = useStore((state) => state.bear.bears);
+    const fishes = useStore((state) => state.fish.fishes);
+    const addBear = useStore((state) => state.bear.addBear);
+    const eatFish = useStore((state) => state.bear.eatFish);
 
-  return (
-    <div>
-      <p>Bears: {bears}</p>
-      <button onClick={addBear}>Add Bear</button>
-      <button onClick={eatFish}>Bear Eats Fish</button>
-    </div>
-  );
+    return (
+        <div>
+            <p>Bears: {bears}</p>
+            <p>Fishes: {fishes}</p>
+            <button onClick={addBear}>Add Bear</button>
+            <button onClick={eatFish}>Bear Eats Fish</button>
+        </div>
+    );
 }
 ```
 
@@ -171,9 +173,9 @@ function BearCounter() {
 ```typescript
 // useStore.ts
 import { create, type StateCreator } from "zustand";
+import { createSlices } from "zustand-create-slices";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import { createSlices } from "zustand-create-slices";
 import { type BearSlice, createBearSlice } from "./bear.store";
 import { createFishSlice, type FishSlice } from "./fish.store";
 
