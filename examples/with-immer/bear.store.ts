@@ -1,14 +1,14 @@
 import { SliceGet, SliceSet } from "./useExampleStore";
 
-interface BearStoreState {
+interface BearSliceState {
     bears: number;
 }
 
-const initialState: BearStoreState = {
+const initialState: BearSliceState = {
     bears: 0
 };
 
-export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<BearStoreState>) => ({
+export const createBearSlice = (set: SliceSet<BearSliceState>, get: SliceGet<BearSliceState>) => ({
     ...initialState,
 
     addBear: () =>
@@ -25,4 +25,4 @@ export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<Bea
 });
 
 // Export the inferred store slice type
-export type BearStore = ReturnType<typeof createBearSlice>;
+export type BearSlice = ReturnType<typeof createBearSlice>;

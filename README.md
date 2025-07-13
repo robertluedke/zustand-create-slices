@@ -26,8 +26,8 @@ npm install zustand-create-slices
 ```typescript
 // First, define the overall store structure
 export type ExampleStore = {
-    bear: BearStore;
-    fish: FishStore;
+    bear: BearSlice;
+    fish: FishSlice;
 };
 
 // Create type helpers for slice creators
@@ -38,7 +38,7 @@ export type SliceGet<T> = Parameters<StoreSlice<T>>[1];
 
 > **Note:** These type definitions are typically included in your main store file (`useStore.ts`). The complete file structure will be shown in step 3.
 
-> **✨ Type Inference Magic:** With this approach, you only need to define the state interface (e.g., `BearStoreState`). Action types are automatically inferred from your slice creators - no need to manually define action interfaces!
+> **✨ Type Inference Magic:** With this approach, you only need to define the state interface (e.g., `BearSliceState`). Action types are automatically inferred from your slice creators - no need to manually define action interfaces!
 
 ### 2. Create your slice creators
 
@@ -46,15 +46,15 @@ export type SliceGet<T> = Parameters<StoreSlice<T>>[1];
 // bear.store.ts
 import type { SliceSet, SliceGet } from "./useStore";
 
-interface BearStoreState {
+interface BearSliceState {
     bears: number;
 }
 
-const initialState: BearStoreState = {
+const initialState: BearSliceState = {
     bears: 0
 };
 
-export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<BearStoreState>) => ({
+export const createBearSlice = (set: SliceSet<BearSliceState>, get: SliceGet<BearSliceState>) => ({
     ...initialState,
 
     addBear: () =>
@@ -79,22 +79,22 @@ export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<Bea
 });
 
 // Export the inferred store slice type
-export type BearStore = ReturnType<typeof createBearSlice>;
+export type BearSlice = ReturnType<typeof createBearSlice>;
 ```
 
 ```typescript
 // fish.store.ts
 import type { SliceSet, SliceGet } from "./useStore";
 
-interface FishStoreState {
+interface FishSliceState {
     fishes: number;
 }
 
-const initialState: FishStoreState = {
+const initialState: FishSliceState = {
     fishes: 0
 };
 
-export const createFishSlice = (set: SliceSet<FishStoreState>, get: SliceGet<FishStoreState>) => ({
+export const createFishSlice = (set: SliceSet<FishSliceState>, get: SliceGet<FishSliceState>) => ({
     ...initialState,
 
     addFish: () =>
@@ -110,7 +110,7 @@ export const createFishSlice = (set: SliceSet<FishStoreState>, get: SliceGet<Fis
 });
 
 // Export the inferred store slice type
-export type FishStore = ReturnType<typeof createFishSlice>;
+export type FishSlice = ReturnType<typeof createFishSlice>;
 ```
 
 ### 3. Combine slices with createSlices
@@ -120,12 +120,12 @@ export type FishStore = ReturnType<typeof createFishSlice>;
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { createSlices } from "zustand-create-slices";
-import { type BearStore, createBearSlice } from "./bear.store";
-import { createFishSlice, type FishStore } from "./fish.store";
+import { type BearSlice, createBearSlice } from "./bear.store";
+import { createFishSlice, type FishSlice } from "./fish.store";
 
 export type ExampleStore = {
-    bear: BearStore;
-    fish: FishStore;
+    bear: BearSlice;
+    fish: FishSlice;
 };
 
 type StoreSlice<T> = StateCreator<ExampleStore, [["zustand/devtools", never]], [], T>;
@@ -174,12 +174,12 @@ import { create, type StateCreator } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { createSlices } from "zustand-create-slices";
-import { type BearStore, createBearSlice } from "./bear.store";
-import { createFishSlice, type FishStore } from "./fish.store";
+import { type BearSlice, createBearSlice } from "./bear.store";
+import { createFishSlice, type FishSlice } from "./fish.store";
 
 export type ExampleStore = {
-    bear: BearStore;
-    fish: FishStore;
+    bear: BearSlice;
+    fish: FishSlice;
 };
 
 type StoreSlice<T> = StateCreator<
@@ -209,15 +209,15 @@ export const useStore = create<ExampleStore>()(
 // bear.store.ts (with Immer)
 import type { SliceSet, SliceGet } from "./useStore";
 
-interface BearStoreState {
+interface BearSliceState {
     bears: number;
 }
 
-const initialState: BearStoreState = {
+const initialState: BearSliceState = {
     bears: 0
 };
 
-export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<BearStoreState>) => ({
+export const createBearSlice = (set: SliceSet<BearSliceState>, get: SliceGet<BearSliceState>) => ({
     ...initialState,
 
     addBear: () =>
@@ -234,7 +234,7 @@ export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<Bea
 });
 
 // Export the inferred store slice type
-export type BearStore = ReturnType<typeof createBearSlice>;
+export type BearSlice = ReturnType<typeof createBearSlice>;
 ```
 
 ## Redux DevTools Integration

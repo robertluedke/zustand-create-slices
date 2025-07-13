@@ -2,14 +2,14 @@ import { create, type StateCreator } from "zustand";
 import { createSlices } from "zustand-create-slices";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import { type BearStore, createBearSlice } from "./bear.store";
-import { createFishSlice, type FishStore } from "./fish.store";
-import { createSharedSlice, type SharedStore } from "./shared.store";
+import { type BearSlice, createBearSlice } from "./bear.store";
+import { createFishSlice, type FishSlice } from "./fish.store";
+import { createSharedSlice, type SharedSlice } from "./shared.store";
 
 export type ExampleStore = {
-    bear: BearStore;
-    fish: FishStore;
-    shared: SharedStore;
+    bear: BearSlice;
+    fish: FishSlice;
+    shared: SharedSlice;
 };
 
 type StoreSlice<T> = StateCreator<

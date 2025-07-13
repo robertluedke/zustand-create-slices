@@ -8,4 +8,4 @@ export const createSharedSlice = (_set: SliceSet<object>, get: SliceGet<object>)
 });
 
 // Export the inferred store slice type
-export type SharedStore = ReturnType<typeof createSharedSlice>;
+export type SharedSlice = ReturnType<typeof createSharedSlice>;
