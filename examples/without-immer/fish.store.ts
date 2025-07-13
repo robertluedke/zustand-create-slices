@@ -1,20 +1,14 @@
-import type { StoreSlice } from "./useStore";
+import type { SliceGet, SliceSet } from "./useExampleStore";
 
 interface FishStoreState {
     fishes: number;
 }
 
-interface FishStoreActions {
-    addFish: () => void;
-}
-
-export type FishStore = FishStoreState & FishStoreActions;
-
 const initialState: FishStoreState = {
-    fishes: 0,
+    fishes: 0
 };
 
-export const createFishSlice: StoreSlice<FishStore> = (set) => ({
+export const createFishSlice = (set: SliceSet<FishStoreState>, get: SliceGet<FishStoreState>) => ({
     ...initialState,
 
     addFish: () =>
@@ -22,7 +16,12 @@ export const createFishSlice: StoreSlice<FishStore> = (set) => ({
             ...state,
             fish: {
                 ...state.fish,
-                fishes: state.fish.fishes + 1,
-            },
+                fishes: state.fish.fishes + 1
+            }
         })),
+
+    getMultipleFishes: (n: number) => get().fish.fishes * n
 });
+
+// Export the inferred store slice type
+export type FishStore = ReturnType<typeof createFishSlice>;

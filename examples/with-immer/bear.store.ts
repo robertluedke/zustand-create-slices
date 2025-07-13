@@ -1,14 +1,14 @@
-import type { StoreSlice } from "./useStore";
+import { SliceGet, SliceSet } from "./useExampleStore";
 
 interface BearStoreState {
     bears: number;
 }
 
 const initialState: BearStoreState = {
-    bears: 0,
+    bears: 0
 };
 
-export const createBearSlice: StoreSlice<BearStoreState> = (set) => ({
+export const createBearSlice = (set: SliceSet<BearStoreState>, get: SliceGet<BearStoreState>) => ({
     ...initialState,
 
     addBear: () =>
@@ -20,6 +20,8 @@ export const createBearSlice: StoreSlice<BearStoreState> = (set) => ({
         set((state) => {
             state.fish.fishes -= state.bear.bears;
         }),
+
+    getMultipleBears: (n: number) => get().bear.bears * n
 });
 
 // Export the inferred store slice type

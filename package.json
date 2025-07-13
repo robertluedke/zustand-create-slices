@@ -1,7 +1,7 @@
 {
     "name": "zustand-create-slices",
     "version": "1.0.0",
-    "description": "A Zustand middleware for composing multiple store slices.",
+    "description": "A Zustand middleware that combines multiple store slices into a structured state with action type inference and enhanced Redux DevTools support.",
     "keywords": [
         "Zustand",
         "Middleware",
@@ -25,18 +25,22 @@
         "email": "robert.luedke@smartfuture.de"
     },
     "type": "module",
-    "main": "dist/createSlices.ts",
+    "main": "dist/zustand-create-slices.ts",
+    "files": [
+        "dist"
+    ],
     "scripts": {
-        "build": "tsup",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "build": "tsup"
     },
-    "dependencies": {
-        "zustand": "^5.0.6"
+    "peerDependencies": {
+        "zustand": "^4.0.0",
+        "typescript": "^4.5.2"
     },
     "devDependencies": {
         "prettier": "^3.6.2",
         "terser": "^5.43.1",
         "tsup": "^8.5.0",
-        "typescript": "^5.8.3"
+        "typescript": "^5.8.3",
+        "zustand": "^5.0.6"
     }
 }

@@ -1,18 +1,11 @@
-import { defineConfig, Options } from "tsup";
+import { defineConfig } from "tsup";
 
-export default defineConfig((options: Options) => ({
+export default defineConfig(() => ({
     target: "ES6",
     format: ["esm"],
-    clean: !options.watch,
-    sourcemap: !!options.watch,
-    minify: options.watch ? false : "terser",
-    terserOptions: {
-        mangle: {
-            toplevel: true,
-        },
-        compress: {
-            
-        }
-    },
-    entryPoints: ["src/createSlices.ts"]
+    dts: true,
+    clean: true,
+    sourcemap: true,
+    minify: false,
+    entryPoints: ["src/zustand-create-slices.ts"]
 }));

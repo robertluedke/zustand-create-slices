@@ -1,37 +1,20 @@
-/**
+/*
  * zustand-create-slices - A Zustand middleware that combines multiple store slices into a
- * structured state.
+ * structured state with slice actions type inference and enhanced Redux DevTools support.
  *
  * (c) 2025 Robert Lüdke
  *
  * This middleware allows you to organize your Zustand store into separate slices,
- * each handling a specific domain of your application state. It automatically:
+ * each handling a specific domain of your application state.
+ *
+ * It automatically:
  *
  * - Combines multiple slice creators into a single store structure
  * - Organizes state with slice names as top-level properties (e.g., state.bear, state.fish)
- * - Enhances action names for Redux DevTools with slice/functionName format
- * - Automatically detects DevTools presence and only processes actions when needed
- *
- * Usage:
- * ```typescript
- * const store = create()(
- *   devtools(
- *     createSlices({
- *       bear: createBearSlice,
- *       fish: createFishSlice,
- *     })
- *   )
- * );
- * ```
- *
- * The resulting store structure will be:
- * ```typescript
- * {
- *   bear: { bears: number, addBear: () => void, ... },
- *   fish: { fishes: number, addFish: () => void, ... }
- * }
- * ```
+ * - Infers action types from slices for cleaner slice structure and better type safety
+ * - Infers action names for Redux DevTools in the "slice/functionName" format
  */
+
 import type { StateCreator, StoreMutatorIdentifier } from "zustand";
 
 type CreateSlices = <
@@ -43,7 +26,7 @@ type CreateSlices = <
 ) => StateCreator<T, Mps, Mcs>;
 
 // Simple function to extract the function name from stack trace
-const extractSliceFunctionName = (): string => {
+const extractSliceFunctionName = (): string | undefined => {
     const stack = new Error().stack || "";
     const lines = stack.split("\n");
 
@@ -72,7 +55,7 @@ const extractSliceFunctionName = (): string => {
         }
     }
 
-    return "unknown action"; // Fallback action name
+    return undefined; // Use zustand devtools default action name
 };
 
 const createSlicesImpl =
@@ -95,7 +78,7 @@ const createSlicesImpl =
                     const [partial, replace, action] = argArray;
                     let finalAction = action;
 
-                    // Only enhance action if devtools are active and no action is provided
+                    // Only enhance action name if devtools are active and no action is provided
                     if (hasDevtools && !action) {
                         // Extract function name and combine with slice key
                         const functionName = extractSliceFunctionName();
@@ -103,12 +86,8 @@ const createSlicesImpl =
                         finalAction = `${sliceKey}/${functionName}`;
                     }
 
-                    return Reflect.apply(target, thisArg, [
-                        partial,
-                        replace,
-                        finalAction,
-                    ]);
-                },
+                    return Reflect.apply(target, thisArg, [partial, replace, finalAction]);
+                }
             });
 
             const sliceResult = slices[sliceKey](slicedSet, get, store);
@@ -118,12 +97,15 @@ const createSlicesImpl =
     };
 
 /**
- * A Zustand middleware that combines multiple store slices into a structured state.
+ * Organizes your store into a slice-based architecture where each slice manages a specific
+ * domain of your application state. It automatically enhances action names for Redux DevTools.
  *
- * Organizes your store into slice-based architecture where each slice manages a specific
- * domain of your application state. Automatically enhances action names for Redux DevTools.
- *
- * @param slices - Object mapping slice names to their respective StateCreator functions
+ * @param slices - A flat object where each key represents a slice name that will become a top-level
+ *                 property in your store, and each value is a StateCreator function that defines
+ *                 the state and actions for that specific slice. Each slice should focus on a
+ *                 single domain or feature of your application (e.g., 'user', 'cart', 'todos').
+ *                 The slice names become the namespaces under which the slice's state and actions
+ *                 are organized in the final store structure.
  * @returns A StateCreator that combines all slices with slice names as top-level properties
  *
  * @example
@@ -138,7 +120,7 @@ const createSlicesImpl =
  * );
  * ```
  *
- * Results in store structure:
+ * Results in the following store structure:
  * ```typescript
  * {
  *   bear: { bears: number, addBear: () => void, ... },
