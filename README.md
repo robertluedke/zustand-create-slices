@@ -1,6 +1,6 @@
 # zustand-create-slices
 
-A Zustand middleware that combines multiple store slices into a structured state with slice actions type inference and enhanced Redux DevTools support.
+A [Zustand](https://github.com/pmndrs/zustand) middleware that combines multiple store slices into a structured state with slice actions type inference and enhanced Redux DevTools support.
 
 This middleware allows you to organize your Zustand store into separate slices, each handling a specific domain of your application state. It automatically combines multiple slice creators into a single store structure, organizes state with slice names as top-level properties and provides enhanced Redux DevTools integration with automatic action naming.
 
