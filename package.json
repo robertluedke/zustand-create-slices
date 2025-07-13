@@ -1,0 +1,42 @@
+{
+    "name": "zustand-create-slices",
+    "version": "1.0.0",
+    "description": "A Zustand middleware for composing multiple store slices.",
+    "keywords": [
+        "Zustand",
+        "Middleware",
+        "React",
+        "Store",
+        "Slices",
+        "Redux",
+        "Devtools"
+    ],
+    "homepage": "https://github.com/robertluedke/zustand-create-slices#readme",
+    "bugs": {
+        "url": "https://github.com/robertluedke/zustand-create-slices/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/robertluedke/zustand-create-slices.git"
+    },
+    "license": "MIT",
+    "author": {
+        "name": "Robert Lüdke",
+        "email": "robert.luedke@smartfuture.de"
+    },
+    "type": "module",
+    "main": "dist/createSlices.ts",
+    "scripts": {
+        "build": "tsup",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "zustand": "^5.0.6"
+    },
+    "devDependencies": {
+        "prettier": "^3.6.2",
+        "terser": "^5.43.1",
+        "tsup": "^8.5.0",
+        "typescript": "^5.8.3"
+    }
+}
