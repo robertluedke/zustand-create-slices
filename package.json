@@ -1,7 +1,7 @@
 {
     "name": "zustand-create-slices",
     "version": "1.0.0",
-    "description": "A Zustand middleware that combines multiple store slices into a structured state with action type inference and enhanced Redux DevTools support.",
+    "description": "A Zustand middleware that combines multiple store slices into a structured state with slice actions type inference and enhanced Redux DevTools support.",
     "keywords": [
         "Zustand",
         "Middleware",
