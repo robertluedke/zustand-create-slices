@@ -34,12 +34,11 @@
         "build": "tsup"
     },
     "peerDependencies": {
-        "zustand": "^5.0.0",
-        "typescript": "^5.0.0"
+        "typescript": "^5.0.0",
+        "zustand": "^5.0.0"
     },
     "devDependencies": {
         "prettier": "^3.6.2",
-        "terser": "^5.43.1",
         "tsup": "^8.5.0",
         "typescript": "^5.8.3",
         "zustand": "^5.0.6"
