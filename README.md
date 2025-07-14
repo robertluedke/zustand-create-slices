@@ -301,8 +301,8 @@ Check out the [`examples`](./examples) directory for complete working examples:
 
 ## Requirements
 
-- **Zustand**: ^4.0.0 (peer dependency)
-- **TypeScript**: ^4.5.0 (for type support)
+- **Zustand**: ^5.0.0 (peer dependency)
+- **TypeScript**: ^5.0.0 (for type support)
 
 ## License
 
